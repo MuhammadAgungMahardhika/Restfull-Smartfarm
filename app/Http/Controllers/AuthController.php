@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
+
 use App\Repositories\AuthRepository;
-use App\Traits\HandlesQueryException;
 
 
 class AuthController extends Controller
 {
-	use HandlesQueryException;
 
 	protected $authRepository;
 
@@ -59,7 +55,6 @@ class AuthController extends Controller
 				'id_role' => 'required',
 				'name' => 'required|string',
 				'password' => 'required|string',
-				'id_role' => 'required',
 				'username' => 'required|string',
 				'status' => 'required',
 				'phone_number' => 'required',
@@ -79,7 +74,8 @@ class AuthController extends Controller
 
 			return response()->json([
 				'message' => 'success created user',
-				'user' => $user
+				'user' => $user,
+				'token' => $user->createToken("Token for" . $user->name)
 			], Response::HTTP_CREATED);
 		} catch (ValidationException $e) {
 			return response()->json([
@@ -87,7 +83,7 @@ class AuthController extends Controller
 				'errors' => $e->errors()
 			], 422);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 }

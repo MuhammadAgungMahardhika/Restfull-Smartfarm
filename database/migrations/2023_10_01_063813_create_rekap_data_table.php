@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('jumlah_kematian_harian');
             $table->timestamp('created_at')->useCurrentOnUpdate()->useCurrent();
             $table->integer('created_by')->nullable();
-            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable();
         });
     }

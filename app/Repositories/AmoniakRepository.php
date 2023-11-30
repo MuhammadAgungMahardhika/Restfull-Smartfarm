@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\AmoniakSensor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use stdClass;
 use Exception;
@@ -12,14 +13,14 @@ class AmoniakRepository
 
   public function __construct()
   {
-
   }
 
-  public function createAmoniak(object $data): AmoniakSensor{
+  public function createAmoniak(object $data): AmoniakSensor
+  {
     try {
       $amoniakData = new AmoniakSensor();
       $amoniakData->id_kandang = $data->id_kandang;
-      $amoniakData->date = $data->date;
+      $amoniakData->date = Carbon::now();
       $amoniakData->amoniak = $data->amoniak;
       $amoniakData->save();
 
@@ -31,7 +32,8 @@ class AmoniakRepository
     }
   }
 
-  public function editAmoniak($id,object $data): AmoniakSensor{
+  public function editAmoniak($id, object $data): AmoniakSensor
+  {
     try {
       $amoniakData = AmoniakSensor::findOrFail($id);
       $amoniakData->id_kandang = $data->id_kandang;
@@ -47,7 +49,8 @@ class AmoniakRepository
     }
   }
 
-  public function deleteAmoniak($id): AmoniakSensor{
+  public function deleteAmoniak($id): AmoniakSensor
+  {
     try {
       $amoniak = AmoniakSensor::findOrFail($id);
       $amoniak->delete();

@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('kandang', function (Blueprint $table) {
             $table->integer('id_kandang', true);
             $table->integer('id_user')->index('id_user');
-            $table->string('nama_kandang', 11)->unique('nama_kandang');
+            $table->string('nama_kandang', 50)->unique('nama_kandang');
             $table->integer('populasi_awal');
-            $table->string('alamat_kandang', 11);
+            $table->string('alamat_kandang', 255);
             $table->timestamp('created_at')->useCurrentOnUpdate()->useCurrent();
             $table->integer('created_by')->nullable();
-            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable();
         });
     }

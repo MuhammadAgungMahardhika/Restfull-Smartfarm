@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Kandang;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Events\AddKandangEvent;
 use App\Repositories\KandangRepository;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 
 class KandangController extends Controller
 {
@@ -26,7 +28,6 @@ class KandangController extends Controller
 
 	public function index()
 	{
-		// dd(['halo'])
 		$items = $this->model->get();
 		return response(['data' => $items, 'status' => 200]);
 	}
@@ -91,7 +92,7 @@ class KandangController extends Controller
 				'errors' => $e->errors()
 			], 422);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 
@@ -104,7 +105,7 @@ class KandangController extends Controller
 				'kandang' => $kandang
 			], Response::HTTP_OK);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Panen;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Repositories\PanenRepository;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 
 class PanenController extends Controller
 {
@@ -61,7 +63,7 @@ class PanenController extends Controller
 				'errors' => $e->errors()
 			], 422);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 
@@ -95,7 +97,7 @@ class PanenController extends Controller
 				'errors' => $e->errors()
 			], 422);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 
@@ -108,7 +110,7 @@ class PanenController extends Controller
 				'panen' => $panen
 			], Response::HTTP_OK);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 }

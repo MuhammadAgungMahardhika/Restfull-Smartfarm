@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\RekapDataHarian;
 use Illuminate\Support\Facades\Log;
-
+use stdClass;
 use Exception;
 
 class RekapDataRepository
@@ -12,10 +12,10 @@ class RekapDataRepository
 
   public function __construct()
   {
+
   }
 
-  public function createRekapHarianData(object $data): RekapDataHarian
-  {
+  public function createRekapHarianData(object $data): RekapDataHarian{
     try {
       $rekapDataHarian = new RekapDataHarian();
       $rekapDataHarian->id_kandang = $data->id_kandang;
@@ -34,8 +34,7 @@ class RekapDataRepository
     }
   }
 
-  public function editDataKandang($id, object $data): RekapDataHarian
-  {
+  public function editDataKandang($id,object $data): RekapDataHarian{
     try {
       $rekapDataHarian = RekapDataHarian::findOrFail($id);
       $rekapDataHarian->id_kandang = $data->id_kandang;
@@ -54,8 +53,7 @@ class RekapDataRepository
     }
   }
 
-  public function deleteDataKandang($id): RekapDataHarian
-  {
+  public function deleteDataKandang($id): RekapDataHarian{
     try {
       $rekapDataHarian = RekapDataHarian::findOrFail($id);
       $rekapDataHarian->delete();

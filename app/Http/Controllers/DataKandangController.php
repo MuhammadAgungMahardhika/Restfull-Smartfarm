@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\DataKandang;
-use App\Models\DataKematian;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use App\Events\AddKandangEvent;
 use App\Repositories\DataKandangRepository;
 use App\Repositories\DataKematianRepository;
+use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 
 class DataKandangController extends Controller
 {
@@ -98,7 +99,7 @@ class DataKandangController extends Controller
 			], 422);
 		} catch (QueryException $th) {
 			DB::rollBack();
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 
@@ -165,7 +166,7 @@ class DataKandangController extends Controller
 			], 422);
 		} catch (QueryException $th) {
 			DB::rollBack();
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 
@@ -183,7 +184,7 @@ class DataKandangController extends Controller
 				'dataKandang' => $dataKandang
 			], Response::HTTP_OK);
 		} catch (QueryException $th) {
-			return $this->handleQueryException($th);
+			return $th->getMessage();
 		}
 	}
 }
