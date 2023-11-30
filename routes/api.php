@@ -26,8 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::group(['middleware' => ['auth:api']], function() {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/kandang', [KandangController::class, 'store']);
     Route::get('/kandang', [KandangController::class, 'index']);
     Route::put('/kandang/{id}', [KandangController::class, 'update']);
@@ -43,7 +44,7 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::post('/sensor-amoniak', [SensorController::class, 'storeAmoniak']);
     Route::post('/sensor-suhu', [SensorController::class, 'storeSuhuKelembapan']);
 
-    Route::post('/data-kandang', [DataKandangController::class, 'store'])   ;
+    Route::post('/data-kandang', [DataKandangController::class, 'store']);
     Route::get('/data-kandang', [DataKandangController::class, 'index']);
     Route::put('/data-kandang/{idKandang}/{idKematian}', [DataKandangController::class, 'update']);
     Route::delete('/data-kandang/{idKematian}/{idKandang}', [DataKandangController::class, 'delete']);
@@ -52,6 +53,4 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('/rekap-data', [RekapDataController::class, 'index']);
     Route::put('/rekap-data/{id}', [RekapDataController::class, 'update']);
     Route::delete('/rekap-data/{id}', [RekapDataController::class, 'delete']);
-    
-    Route::post('/register', [AuthController::class, 'register']);
 });
