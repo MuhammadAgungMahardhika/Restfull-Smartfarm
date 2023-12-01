@@ -19,10 +19,10 @@
 
 <body>
     <div id="root"></div>
-    <script src="adminkit/js/app.js"></script>
+    {{-- <script src="adminkit/js/app.js"></script> --}}
     {{-- chart --}}
-    <script src="adminkit/js/charts.js"></script>
-    <script>
+    {{-- <script src="adminkit/js/charts.js"></script> --}}
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
             var defaultDate =
@@ -93,7 +93,7 @@
                 },
             });
         });
-    </script>
+    </script> --}}
 
 </body>
 

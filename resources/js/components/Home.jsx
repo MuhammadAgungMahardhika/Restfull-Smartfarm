@@ -2,10 +2,13 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Dashboard from "../pages/Dashboard";
+import MyComponent from "./source";
+
 import { useEffect } from "react";
 function Home() {
     return (
         <div className="wrapper">
+            <MyComponent />
             <Sidebar />
             <div className="main">
                 <Navbar />
